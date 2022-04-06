@@ -1,6 +1,7 @@
 <?php
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
+use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +15,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('posts');
+    $posts = Post::all();
+    //yaml is a package we use to read files through post meta.
+    $document = YamlFrontMatter::parseFile(
+        resource_path('posts/my-fourth-post.html')
+    );
+
+    ddd($document);
+//    return view('posts', [
+//        'posts' => Post::all()
+//    ]);
 });
 
 Route::get('posts/{post}', function ($slug) {
