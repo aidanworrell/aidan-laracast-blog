@@ -1,5 +1,7 @@
 <?php
+
 use App\Models\Post;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 
@@ -13,18 +15,15 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//so what this is doing is creating a collection from "$files" by going through each file in that array, parsing it with YamlFrontMatter, and then creating a new post with the results from parsing it with YAML
 Route::get('/', function () {
-    $posts = Post::all();
-    //yaml is a package we use to read files through post meta.
-    $document = YamlFrontMatter::parseFile(
-        resource_path('posts/my-fourth-post.html')
-    );
+    //Find all of the files in the post directory
+    $files = File::files(resource_path("posts"));
 
-    ddd($document);
-//    return view('posts', [
-//        'posts' => Post::all()
-//    ]);
+    $posts = Post::all();
+    return view('posts', [
+        'posts' => $posts
+    ]);
 });
 
 Route::get('posts/{post}', function ($slug) {
@@ -39,14 +38,13 @@ Route::get('posts/{post}', function ($slug) {
     $path = __DIR__ . "/../resources/posts/{$slug}.html";
 
     //Check to see if the file exists
-    if(! file_exists($path)) {
+    if (!file_exists($path)) {
         return redirect('/');
     }
     //If it does then fetch the content of the file
     $post = file_get_contents($path);
 
 //    Then it will pass to the view
-
 
 
 //creating a constraints
