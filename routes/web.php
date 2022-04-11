@@ -26,9 +26,10 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('posts/{post}', function ($slug) {
+Route::get('posts/{post}', function ($id) {
     //FInd a post by its slug and pass it to a view called "post"
-    $post = Post::find($slug);
+    $post = Post::find($id);
+
 
     return view('post', [
         'post' => $post
@@ -48,4 +49,4 @@ Route::get('posts/{post}', function ($slug) {
 
 
 //creating a constraints
-})->where('post', '[A-z_\-]+');
+});

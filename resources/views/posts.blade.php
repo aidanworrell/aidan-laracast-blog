@@ -10,7 +10,7 @@
         <article>
             <h1>
                 <a
-                    href="/posts/<?= $post->slug;?>">
+                    href="/posts/{{$post->id}}">
                     {{ $post->title }}
                 </a>
 
