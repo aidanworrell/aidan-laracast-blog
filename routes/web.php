@@ -26,10 +26,9 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('posts/{post}', function ($id) {
+Route::get('posts/{post:slug}', function (Post $post) {
     //FInd a post by its slug and pass it to a view called "post"
-    $post = Post::find($id);
-
+//    $post = Post::find($id);
 
     return view('post', [
         'post' => $post
@@ -50,3 +49,10 @@ Route::get('posts/{post}', function ($id) {
 
 //creating a constraints
 });
+
+Route::get('categories/{category}', function (Categories $category) {
+    return view('posts', [
+        'posts' => $category->posts
+    ]);
+});
+

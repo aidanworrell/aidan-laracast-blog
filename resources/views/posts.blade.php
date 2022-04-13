@@ -6,17 +6,19 @@
 @extends('layout')
 @section('content')
     @foreach ($posts as $post)
-{{--        @dd($loop)--}}
+        {{--        @dd($loop)--}}
         <article>
             <h1>
                 <a
-                    href="/posts/{{$post->id}}">
-                    {{ $post->title }}
+                    href="/posts/{{$post->slug}}">
+                    {!! $post->title !!}
                 </a>
 
 
             </h1>
-
+            <p>
+                <a href="/categories/{{ $post->category->id }}">{{ $post->categories->name }}</a>
+            </p>
             <div>
                 {{ $post->excerpt }}
             </div>
